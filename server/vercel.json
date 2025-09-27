@@ -11,12 +11,5 @@
       "src": "/(.*)",
       "dest": "server/index.js"
     }
-  ],
-  "env": {
-    "MONGO_URI": "@mongo_uri",
-    "JWT_SECRET": "@jwt_secret",
-    "PAYPAL_CLIENT_ID": "@paypal_client_id",
-    "PAYPAL_SECRET": "@paypal_secret",
-    "NODE_ENV": "production"
-  }
+  ]
 }
