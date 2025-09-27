@@ -95,9 +95,9 @@ const Userlogin = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // ✅ must be true on HTTPS
-        sameSite: "None", // ✅ allow cross-site
-        maxAge: 3600000, // 1 hour
+        secure: true, 
+        sameSite: "None", 
+        maxAge: 3600000, 
       })
       .json({
         success: true,
