@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const serverless = require("vercel-node-server");
 
 const authRouter = require("./routes/auth/auth-route");
 const adminProductsRouter = require("./routes/admin/products-routes");
@@ -57,5 +58,5 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Export the app for Vercel
-module.exports = app;
+// Export wrapped app for Vercel serverless
+module.exports = serverless(app);
