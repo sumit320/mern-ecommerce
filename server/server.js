@@ -51,6 +51,10 @@ app.use("/api/shop/review", shopReviewRouter);
 
 app.use("/api/common/feature", commonFeatureRouter);
 
+app.get("/api/hello", (req, res) =>
+  res.json({ message: "Server is running!" })
+);
+
 // MongoDB connection
 mongoose
   .connect(process.env.MONGODB_URI)
