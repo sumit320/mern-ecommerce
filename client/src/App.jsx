@@ -14,7 +14,7 @@ import AdminOrders from "./pages/auth/admin/orders";
 import AdminFeatures from "./pages/auth/admin/features";
 
 import ShoppingLayout from "./components/shopping/layout";
-import ShoppingHome from "./pages/shopping/Home";
+import ShoppingHome from "./pages/shopping/home";
 import ShoppingListing from "./pages/shopping/listing";
 import ShoppingCheckout from "./pages/shopping/checkout";
 import ShoppingAccount from "./pages/shopping/account";
