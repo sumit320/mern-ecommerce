@@ -1,10 +1,19 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function CheckAuth({ isAuthenticated, user, children }) {
+function CheckAuth({ children }) {
   const location = useLocation();
+  const { isAuthenticated, user, isLoading } = useSelector(
+    (state) => state.auth
+  );
 
   const redirectBasedOnRole = (role) =>
     role === "admin" ? "/admin/dashboard" : "/shop/home";
+
+  // ⏳ While auth check is in progress, show nothing or a loader
+  if (isLoading) {
+    return null; // or a spinner / skeleton
+  }
 
   // Not authenticated → go to login
   if (!isAuthenticated || !user) {
