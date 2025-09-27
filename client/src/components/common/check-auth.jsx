@@ -36,7 +36,7 @@ function CheckAuth({ children }) {
     (location.pathname.includes("/login") ||
       location.pathname.includes("/register"))
   ) {
-    return <Navigate to={redirectBasedOnRole(user.role)} replace />;
+    return <Navigate to={redirectBasedOnRole(user?.role)} replace />;
   }
 
   // Role-based access control
