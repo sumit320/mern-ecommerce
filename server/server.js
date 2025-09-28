@@ -51,17 +51,13 @@ app.use("/api/shop/review", shopReviewRouter);
 
 app.use("/api/common/feature", commonFeatureRouter);
 
-app.get("/api/hello", (req, res) =>
-  res.json({ message: "Server is running!" })
-);
-
-// MongoDB connection
+//MongoDB connection
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// ✅ Local server
+//Local server
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () =>
@@ -69,5 +65,5 @@ if (process.env.NODE_ENV !== "production") {
   );
 }
 
-// ✅ Export app as a function for Vercel
+//Export app as a function for Vercel
 module.exports = (req, res) => app(req, res);
