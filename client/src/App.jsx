@@ -26,6 +26,26 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping/paypal-return";
 import PaymentSuccessPage from "./pages/shopping/payment-success";
 import SearchProducts from "./pages/shopping/search";
+import { useNavigate } from "react-router-dom";
+
+// Root redirect component
+function RootRedirect({ isLoading, isAuthenticated, role }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        navigate(role === "admin" ? "/admin/dashboard" : "/shop/home", {
+          replace: true,
+        });
+      } else {
+        navigate("/auth/login", { replace: true });
+      }
+    }
+  }, [isLoading, isAuthenticated, role, navigate]);
+
+  return null; // no UI, just redirects
+}
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -52,16 +72,11 @@ function App() {
         <Route
           path="/"
           element={
-            isLoading ? (
-              <Skeleton className="w-[800px] h-[600px] bg-black" />
-            ) : isAuthenticated ? (
-              <Navigate
-                to={user?.role === "admin" ? "/admin/dashboard" : "/shop/home"}
-                replace
-              />
-            ) : (
-              <Navigate to="/auth/login" replace />
-            )
+            <RootRedirect
+              isLoading={isLoading}
+              isAuthenticated={isAuthenticated}
+              role={user?.role}
+            />
           }
         />
 

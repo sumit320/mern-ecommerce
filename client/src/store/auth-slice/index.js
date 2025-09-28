@@ -34,7 +34,7 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/auth/login`,
         formData,
-        { withCredentials: true }
+        { withCredentials: true } // include cookie
       );
       return response.data;
     } catch (error) {
@@ -69,10 +69,7 @@ export const checkAuth = createAsyncThunk(
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/auth/check-auth`,
-        {
-          withCredentials: true,
-          headers: { "Cache-Control": "no-store, no-cache, must-revalidate" },
-        }
+        { withCredentials: true } // include cookie
       );
       return response.data;
     } catch (error) {
@@ -119,9 +116,14 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null;
-        state.isAuthenticated = action.payload.success;
-        state.error = action.payload.success ? null : action.payload.message;
+        if (action.payload.success) {
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+        } else {
+          state.user = null;
+          state.isAuthenticated = false;
+          state.error = action.payload.message;
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
