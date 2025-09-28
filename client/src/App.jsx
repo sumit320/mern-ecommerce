@@ -52,12 +52,15 @@ function App() {
         <Route
           path="/"
           element={
-            isAuthenticated ? (
+            isLoading ? (
+              <Skeleton className="w-[800px] h-[600px] bg-black" />
+            ) : isAuthenticated ? (
               <Navigate
                 to={user?.role === "admin" ? "/admin/dashboard" : "/shop/home"}
+                replace
               />
             ) : (
-              <Navigate to="/auth/login" />
+              <Navigate to="/auth/login" replace />
             )
           }
         />
